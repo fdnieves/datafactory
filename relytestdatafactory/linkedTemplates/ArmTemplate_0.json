@@ -1,0 +1,1378 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "relytestdatafactory"
+		},
+		"Omni test_secretAccessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'secretAccessKey' of 'Omni test'"
+		},
+		"relyblobtest_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'relyblobtest'"
+		},
+		"Omni test_properties_typeProperties_accessKeyId": {
+			"type": "string",
+			"defaultValue": "AKIAIZZHHYHLCPWVGBSQ"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Omni test')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AmazonS3",
+				"typeProperties": {
+					"serviceUrl": "",
+					"accessKeyId": "[parameters('Omni test_properties_typeProperties_accessKeyId')]",
+					"secretAccessKey": {
+						"type": "SecureString",
+						"value": "[parameters('Omni test_secretAccessKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/relyblobtest')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('relyblobtest_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Omni test",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AmazonS3Location",
+						"bucketName": "retargetly-omnisci-test",
+						"fileName": "0005.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "timestamp",
+						"type": "String"
+					},
+					{
+						"name": "time",
+						"type": "String"
+					},
+					{
+						"name": "user",
+						"type": "String"
+					},
+					{
+						"name": "device_id",
+						"type": "String"
+					},
+					{
+						"name": "device_type",
+						"type": "String"
+					},
+					{
+						"name": "web_id",
+						"type": "String"
+					},
+					{
+						"name": "android_id",
+						"type": "String"
+					},
+					{
+						"name": "ios_id",
+						"type": "String"
+					},
+					{
+						"name": "event_type",
+						"type": "String"
+					},
+					{
+						"name": "data_type",
+						"type": "String"
+					},
+					{
+						"name": "nav_type",
+						"type": "String"
+					},
+					{
+						"name": "version",
+						"type": "String"
+					},
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "user_country",
+						"type": "String"
+					},
+					{
+						"name": "ip",
+						"type": "String"
+					},
+					{
+						"name": "created",
+						"type": "String"
+					},
+					{
+						"name": "id_partner",
+						"type": "String"
+					},
+					{
+						"name": "id_partner_user",
+						"type": "String"
+					},
+					{
+						"name": "id_segment_source",
+						"type": "String"
+					},
+					{
+						"name": "share_data",
+						"type": "String"
+					},
+					{
+						"name": "segments",
+						"type": "String"
+					},
+					{
+						"name": "clusters",
+						"type": "String"
+					},
+					{
+						"name": "first_party",
+						"type": "String"
+					},
+					{
+						"name": "second_party",
+						"type": "String"
+					},
+					{
+						"name": "third_party",
+						"type": "String"
+					},
+					{
+						"name": "all_clusters",
+						"type": "String"
+					},
+					{
+						"name": "all_segments",
+						"type": "String"
+					},
+					{
+						"name": "all_segments_xd",
+						"type": "String"
+					},
+					{
+						"name": "gt",
+						"type": "String"
+					},
+					{
+						"name": "user_agent",
+						"type": "String"
+					},
+					{
+						"name": "browser",
+						"type": "String"
+					},
+					{
+						"name": "url",
+						"type": "String"
+					},
+					{
+						"name": "secondary_url",
+						"type": "String"
+					},
+					{
+						"name": "referer",
+						"type": "String"
+					},
+					{
+						"name": "sec",
+						"type": "String"
+					},
+					{
+						"name": "tagged",
+						"type": "String"
+					},
+					{
+						"name": "tags",
+						"type": "String"
+					},
+					{
+						"name": "title",
+						"type": "String"
+					},
+					{
+						"name": "category",
+						"type": "String"
+					},
+					{
+						"name": "sub_category",
+						"type": "String"
+					},
+					{
+						"name": "search_keyword",
+						"type": "String"
+					},
+					{
+						"name": "vertical",
+						"type": "String"
+					},
+					{
+						"name": "mb_sh2",
+						"type": "String"
+					},
+					{
+						"name": "mb_sh5",
+						"type": "String"
+					},
+					{
+						"name": "ml_sh2",
+						"type": "String"
+					},
+					{
+						"name": "ml_sh5",
+						"type": "String"
+					},
+					{
+						"name": "nid_sh2",
+						"type": "String"
+					},
+					{
+						"name": "nid_sh5",
+						"type": "String"
+					},
+					{
+						"name": "track_code",
+						"type": "String"
+					},
+					{
+						"name": "track_type",
+						"type": "String"
+					},
+					{
+						"name": "advertiser_id",
+						"type": "String"
+					},
+					{
+						"name": "advertiser_name",
+						"type": "String"
+					},
+					{
+						"name": "campaign_id",
+						"type": "String"
+					},
+					{
+						"name": "campaign_name",
+						"type": "String"
+					},
+					{
+						"name": "placement_id",
+						"type": "String"
+					},
+					{
+						"name": "site_id",
+						"type": "String"
+					},
+					{
+						"name": "click_count",
+						"type": "String"
+					},
+					{
+						"name": "conversion_count",
+						"type": "String"
+					},
+					{
+						"name": "impression_count",
+						"type": "String"
+					},
+					{
+						"name": "app_data",
+						"type": "String"
+					},
+					{
+						"name": "app_installed",
+						"type": "String"
+					},
+					{
+						"name": "app_name",
+						"type": "String"
+					},
+					{
+						"name": "wifi_name",
+						"type": "String"
+					},
+					{
+						"name": "latitude",
+						"type": "String"
+					},
+					{
+						"name": "longitude",
+						"type": "String"
+					},
+					{
+						"name": "accuracy",
+						"type": "String"
+					},
+					{
+						"name": "altitude",
+						"type": "String"
+					},
+					{
+						"name": "altaccuracy",
+						"type": "String"
+					},
+					{
+						"name": "p223",
+						"type": "String"
+					},
+					{
+						"name": "p240",
+						"type": "String"
+					},
+					{
+						"name": "d2",
+						"type": "String"
+					},
+					{
+						"name": "d9",
+						"type": "String"
+					},
+					{
+						"name": "d10",
+						"type": "String"
+					},
+					{
+						"name": "d11",
+						"type": "String"
+					},
+					{
+						"name": "d13",
+						"type": "String"
+					},
+					{
+						"name": "d14",
+						"type": "String"
+					},
+					{
+						"name": "d17",
+						"type": "String"
+					},
+					{
+						"name": "d18",
+						"type": "String"
+					},
+					{
+						"name": "d19",
+						"type": "String"
+					},
+					{
+						"name": "d20",
+						"type": "String"
+					},
+					{
+						"name": "d21",
+						"type": "String"
+					},
+					{
+						"name": "d22",
+						"type": "String"
+					},
+					{
+						"name": "url_subdomain",
+						"type": "String"
+					},
+					{
+						"name": "url_domain",
+						"type": "String"
+					},
+					{
+						"name": "url_path",
+						"type": "String"
+					},
+					{
+						"name": "referer_subdomain",
+						"type": "String"
+					},
+					{
+						"name": "referer_domain",
+						"type": "String"
+					},
+					{
+						"name": "referer_path",
+						"type": "String"
+					},
+					{
+						"name": "d23",
+						"type": "String"
+					},
+					{
+						"name": "removed_segments",
+						"type": "String"
+					},
+					{
+						"name": "activable",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Omni test')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_ykm')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "relyblobtest",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "0000.csv",
+						"container": "relycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/relyblobtest')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_ykm')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Omni test",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AmazonS3Location",
+						"bucketName": "retargetly-omnisci-test",
+						"fileName": "0005.csv"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "timestamp",
+						"type": "String"
+					},
+					{
+						"name": "time",
+						"type": "String"
+					},
+					{
+						"name": "user",
+						"type": "String"
+					},
+					{
+						"name": "device_id",
+						"type": "String"
+					},
+					{
+						"name": "device_type",
+						"type": "String"
+					},
+					{
+						"name": "web_id",
+						"type": "String"
+					},
+					{
+						"name": "android_id",
+						"type": "String"
+					},
+					{
+						"name": "ios_id",
+						"type": "String"
+					},
+					{
+						"name": "event_type",
+						"type": "String"
+					},
+					{
+						"name": "data_type",
+						"type": "String"
+					},
+					{
+						"name": "nav_type",
+						"type": "String"
+					},
+					{
+						"name": "version",
+						"type": "String"
+					},
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "user_country",
+						"type": "String"
+					},
+					{
+						"name": "ip",
+						"type": "String"
+					},
+					{
+						"name": "created",
+						"type": "String"
+					},
+					{
+						"name": "id_partner",
+						"type": "String"
+					},
+					{
+						"name": "id_partner_user",
+						"type": "String"
+					},
+					{
+						"name": "id_segment_source",
+						"type": "String"
+					},
+					{
+						"name": "share_data",
+						"type": "String"
+					},
+					{
+						"name": "segments",
+						"type": "String"
+					},
+					{
+						"name": "clusters",
+						"type": "String"
+					},
+					{
+						"name": "first_party",
+						"type": "String"
+					},
+					{
+						"name": "second_party",
+						"type": "String"
+					},
+					{
+						"name": "third_party",
+						"type": "String"
+					},
+					{
+						"name": "all_clusters",
+						"type": "String"
+					},
+					{
+						"name": "all_segments",
+						"type": "String"
+					},
+					{
+						"name": "all_segments_xd",
+						"type": "String"
+					},
+					{
+						"name": "gt",
+						"type": "String"
+					},
+					{
+						"name": "user_agent",
+						"type": "String"
+					},
+					{
+						"name": "browser",
+						"type": "String"
+					},
+					{
+						"name": "url",
+						"type": "String"
+					},
+					{
+						"name": "secondary_url",
+						"type": "String"
+					},
+					{
+						"name": "referer",
+						"type": "String"
+					},
+					{
+						"name": "sec",
+						"type": "String"
+					},
+					{
+						"name": "tagged",
+						"type": "String"
+					},
+					{
+						"name": "tags",
+						"type": "String"
+					},
+					{
+						"name": "title",
+						"type": "String"
+					},
+					{
+						"name": "category",
+						"type": "String"
+					},
+					{
+						"name": "sub_category",
+						"type": "String"
+					},
+					{
+						"name": "search_keyword",
+						"type": "String"
+					},
+					{
+						"name": "vertical",
+						"type": "String"
+					},
+					{
+						"name": "mb_sh2",
+						"type": "String"
+					},
+					{
+						"name": "mb_sh5",
+						"type": "String"
+					},
+					{
+						"name": "ml_sh2",
+						"type": "String"
+					},
+					{
+						"name": "ml_sh5",
+						"type": "String"
+					},
+					{
+						"name": "nid_sh2",
+						"type": "String"
+					},
+					{
+						"name": "nid_sh5",
+						"type": "String"
+					},
+					{
+						"name": "track_code",
+						"type": "String"
+					},
+					{
+						"name": "track_type",
+						"type": "String"
+					},
+					{
+						"name": "advertiser_id",
+						"type": "String"
+					},
+					{
+						"name": "advertiser_name",
+						"type": "String"
+					},
+					{
+						"name": "campaign_id",
+						"type": "String"
+					},
+					{
+						"name": "campaign_name",
+						"type": "String"
+					},
+					{
+						"name": "placement_id",
+						"type": "String"
+					},
+					{
+						"name": "site_id",
+						"type": "String"
+					},
+					{
+						"name": "click_count",
+						"type": "String"
+					},
+					{
+						"name": "conversion_count",
+						"type": "String"
+					},
+					{
+						"name": "impression_count",
+						"type": "String"
+					},
+					{
+						"name": "app_data",
+						"type": "String"
+					},
+					{
+						"name": "app_installed",
+						"type": "String"
+					},
+					{
+						"name": "app_name",
+						"type": "String"
+					},
+					{
+						"name": "wifi_name",
+						"type": "String"
+					},
+					{
+						"name": "latitude",
+						"type": "String"
+					},
+					{
+						"name": "longitude",
+						"type": "String"
+					},
+					{
+						"name": "accuracy",
+						"type": "String"
+					},
+					{
+						"name": "altitude",
+						"type": "String"
+					},
+					{
+						"name": "altaccuracy",
+						"type": "String"
+					},
+					{
+						"name": "p223",
+						"type": "String"
+					},
+					{
+						"name": "p240",
+						"type": "String"
+					},
+					{
+						"name": "d2",
+						"type": "String"
+					},
+					{
+						"name": "d9",
+						"type": "String"
+					},
+					{
+						"name": "d10",
+						"type": "String"
+					},
+					{
+						"name": "d11",
+						"type": "String"
+					},
+					{
+						"name": "d13",
+						"type": "String"
+					},
+					{
+						"name": "d14",
+						"type": "String"
+					},
+					{
+						"name": "d17",
+						"type": "String"
+					},
+					{
+						"name": "d18",
+						"type": "String"
+					},
+					{
+						"name": "d19",
+						"type": "String"
+					},
+					{
+						"name": "d20",
+						"type": "String"
+					},
+					{
+						"name": "d21",
+						"type": "String"
+					},
+					{
+						"name": "d22",
+						"type": "String"
+					},
+					{
+						"name": "url_subdomain",
+						"type": "String"
+					},
+					{
+						"name": "url_domain",
+						"type": "String"
+					},
+					{
+						"name": "url_path",
+						"type": "String"
+					},
+					{
+						"name": "referer_subdomain",
+						"type": "String"
+					},
+					{
+						"name": "referer_domain",
+						"type": "String"
+					},
+					{
+						"name": "referer_path",
+						"type": "String"
+					},
+					{
+						"name": "d23",
+						"type": "String"
+					},
+					{
+						"name": "removed_segments",
+						"type": "String"
+					},
+					{
+						"name": "activable",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Omni test')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BLOBSTORAGE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "relyblobtest",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "relycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "1540857900",
+						"type": "String"
+					},
+					{
+						"name": "2018-10-30T00:05:00.002Z",
+						"type": "String"
+					},
+					{
+						"name": "a9debdcc-08ca-4600-968a-b4690cd3bf832",
+						"type": "String"
+					},
+					{
+						"name": "a9debdcc-08ca-4600-968a-b4690cd3bf833",
+						"type": "String"
+					},
+					{
+						"name": "web4",
+						"type": "String"
+					},
+					{
+						"name": "a9debdcc-08ca-4600-968a-b4690cd3bf835",
+						"type": "String"
+					},
+					{
+						"name": "Prop_6",
+						"type": "String"
+					},
+					{
+						"name": "Prop_7",
+						"type": "String"
+					},
+					{
+						"name": "sync",
+						"type": "String"
+					},
+					{
+						"name": "Prop_9",
+						"type": "String"
+					},
+					{
+						"name": "web10",
+						"type": "String"
+					},
+					{
+						"name": "Prop_11",
+						"type": "String"
+					},
+					{
+						"name": "US",
+						"type": "String"
+					},
+					{
+						"name": "Prop_13",
+						"type": "String"
+					},
+					{
+						"name": "Prop_14",
+						"type": "String"
+					},
+					{
+						"name": "1538450539",
+						"type": "String"
+					},
+					{
+						"name": "10",
+						"type": "String"
+					},
+					{
+						"name": "95a65ac2-b6bd-4c00-b090-67767bf8a62217",
+						"type": "String"
+					},
+					{
+						"name": "Prop_18",
+						"type": "String"
+					},
+					{
+						"name": "Prop_19",
+						"type": "String"
+					},
+					{
+						"name": "Prop_20",
+						"type": "String"
+					},
+					{
+						"name": "Prop_21",
+						"type": "String"
+					},
+					{
+						"name": "Prop_22",
+						"type": "String"
+					},
+					{
+						"name": "8190",
+						"type": "String"
+					},
+					{
+						"name": "26\u0001129\u0001302\u0001317\u0001326\u0001352\u0001560\u0001563\u0001572\u0001811\u00011087\u00013055\u00013388\u00014643",
+						"type": "String"
+					},
+					{
+						"name": "7\u00018\u000111\u000112\u000113\u000116\u000164\u000161\u0001289",
+						"type": "String"
+					},
+					{
+						"name": "26\u0001129\u0001302\u0001317\u0001326\u0001352\u0001560\u0001563\u0001572\u0001811\u00011087\u00013055\u00013388\u00014643\u00018190",
+						"type": "String"
+					},
+					{
+						"name": "Prop_27",
+						"type": "String"
+					},
+					{
+						"name": "Prop_28",
+						"type": "String"
+					},
+					{
+						"name": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/69.0.3497.100 Safari/537.36",
+						"type": "String"
+					},
+					{
+						"name": "Prop_30",
+						"type": "String"
+					},
+					{
+						"name": "https://t.sharethis.com/a/t_.htm?ver=0.200.7874&cid=c010",
+						"type": "String"
+					},
+					{
+						"name": "Prop_32",
+						"type": "String"
+					},
+					{
+						"name": "Prop_33",
+						"type": "String"
+					},
+					{
+						"name": "Prop_34",
+						"type": "String"
+					},
+					{
+						"name": "Prop_35",
+						"type": "String"
+					},
+					{
+						"name": "Prop_36",
+						"type": "String"
+					},
+					{
+						"name": "Prop_37",
+						"type": "String"
+					},
+					{
+						"name": "Prop_38",
+						"type": "String"
+					},
+					{
+						"name": "Prop_39",
+						"type": "String"
+					},
+					{
+						"name": "Prop_40",
+						"type": "String"
+					},
+					{
+						"name": "Prop_41",
+						"type": "String"
+					},
+					{
+						"name": "Prop_42",
+						"type": "String"
+					},
+					{
+						"name": "Prop_43",
+						"type": "String"
+					},
+					{
+						"name": "Prop_44",
+						"type": "String"
+					},
+					{
+						"name": "Prop_45",
+						"type": "String"
+					},
+					{
+						"name": "Prop_46",
+						"type": "String"
+					},
+					{
+						"name": "Prop_47",
+						"type": "String"
+					},
+					{
+						"name": "Prop_48",
+						"type": "String"
+					},
+					{
+						"name": "Prop_49",
+						"type": "String"
+					},
+					{
+						"name": "Prop_50",
+						"type": "String"
+					},
+					{
+						"name": "Prop_51",
+						"type": "String"
+					},
+					{
+						"name": "Prop_52",
+						"type": "String"
+					},
+					{
+						"name": "Prop_53",
+						"type": "String"
+					},
+					{
+						"name": "Prop_54",
+						"type": "String"
+					},
+					{
+						"name": "Prop_55",
+						"type": "String"
+					},
+					{
+						"name": "Prop_56",
+						"type": "String"
+					},
+					{
+						"name": "Prop_57",
+						"type": "String"
+					},
+					{
+						"name": "Prop_58",
+						"type": "String"
+					},
+					{
+						"name": "Prop_59",
+						"type": "String"
+					},
+					{
+						"name": "Prop_60",
+						"type": "String"
+					},
+					{
+						"name": "Prop_61",
+						"type": "String"
+					},
+					{
+						"name": "Prop_62",
+						"type": "String"
+					},
+					{
+						"name": "Prop_63",
+						"type": "String"
+					},
+					{
+						"name": "Prop_64",
+						"type": "String"
+					},
+					{
+						"name": "Prop_65",
+						"type": "String"
+					},
+					{
+						"name": "Prop_66",
+						"type": "String"
+					},
+					{
+						"name": "Prop_67",
+						"type": "String"
+					},
+					{
+						"name": "Prop_68",
+						"type": "String"
+					},
+					{
+						"name": "Prop_69",
+						"type": "String"
+					},
+					{
+						"name": "145671869742291453",
+						"type": "String"
+					},
+					{
+						"name": "Prop_71",
+						"type": "String"
+					},
+					{
+						"name": "95a65ac2-b6bd-4c00-b090-67767bf8a62272",
+						"type": "String"
+					},
+					{
+						"name": "CAESEFnw7npoFRVgHYgn7sSerA0",
+						"type": "String"
+					},
+					{
+						"name": "fd5ec67e-5e80-4564-a02d-04e6b8996da4",
+						"type": "String"
+					},
+					{
+						"name": "Prop_75",
+						"type": "String"
+					},
+					{
+						"name": "CvQKCFrCwhgAAAASdS5qAw==",
+						"type": "String"
+					},
+					{
+						"name": "Prop_77",
+						"type": "String"
+					},
+					{
+						"name": "Prop_78",
+						"type": "String"
+					},
+					{
+						"name": "Prop_79",
+						"type": "String"
+					},
+					{
+						"name": "Prop_80",
+						"type": "String"
+					},
+					{
+						"name": "y-b446dwx1lwV3JHPexH4H8kAw.qb2V2N3sn_mnEHuYyffvVkW7D60v5eaIxHAC2u58WNm",
+						"type": "String"
+					},
+					{
+						"name": "t",
+						"type": "String"
+					},
+					{
+						"name": "sharethis.com",
+						"type": "String"
+					},
+					{
+						"name": "/a/t_.htm",
+						"type": "String"
+					},
+					{
+						"name": "Prop_85",
+						"type": "String"
+					},
+					{
+						"name": "Prop_86",
+						"type": "String"
+					},
+					{
+						"name": "Prop_87",
+						"type": "String"
+					},
+					{
+						"name": "Prop_88",
+						"type": "String"
+					},
+					{
+						"name": "Prop_89",
+						"type": "String"
+					},
+					{
+						"name": "1",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/relyblobtest')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyPipeline_ykm')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_ykm",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "retargetly-omnisci-test//0005.csv"
+							},
+							{
+								"name": "Destination",
+								"value": "relycontainer//0000.csv"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AmazonS3ReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_ykm",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_ykm",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_ykm')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_ykm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "BLOBSTORAGE",
+								"type": "DatasetReference"
+							},
+							"name": "source1",
+							"typeProperties": {}
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "BLOBSTORAGE",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Filter1"
+						}
+					],
+					"script": "\n\nsource(output(\n\t\t{1540857900} as string,\n\t\t{2018-10-30T00:05:00.002Z} as string,\n\t\t{a9debdcc-08ca-4600-968a-b4690cd3bf832} as string,\n\t\t{a9debdcc-08ca-4600-968a-b4690cd3bf833} as string,\n\t\tweb4 as string,\n\t\t{a9debdcc-08ca-4600-968a-b4690cd3bf835} as string,\n\t\tProp_6 as string,\n\t\tProp_7 as string,\n\t\tsync as string,\n\t\tProp_9 as string,\n\t\tweb10 as string,\n\t\tProp_11 as string,\n\t\tUS as string,\n\t\tProp_13 as string,\n\t\tProp_14 as string,\n\t\t{1538450539} as string,\n\t\t{10} as string,\n\t\t{95a65ac2-b6bd-4c00-b090-67767bf8a62217} as string,\n\t\tProp_18 as string,\n\t\tProp_19 as string,\n\t\tProp_20 as string,\n\t\tProp_21 as string,\n\t\tProp_22 as string,\n\t\t{8190} as string,\n\t\t{26\u0001129\u0001302\u0001317\u0001326\u0001352\u0001560\u0001563\u0001572\u0001811\u00011087\u00013055\u00013388\u00014643} as string,\n\t\t{7\u00018\u000111\u000112\u000113\u000116\u000164\u000161\u0001289} as string,\n\t\t{26\u0001129\u0001302\u0001317\u0001326\u0001352\u0001560\u0001563\u0001572\u0001811\u00011087\u00013055\u00013388\u00014643\u00018190} as string,\n\t\tProp_27 as string,\n\t\tProp_28 as string,\n\t\t{Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/69.0.3497.100 Safari/537.36} as string,\n\t\tProp_30 as string,\n\t\t{https://t.sharethis.com/a/t_.htm?ver=0.200.7874&cid=c010} as string,\n\t\tProp_32 as string,\n\t\tProp_33 as string,\n\t\tProp_34 as string,\n\t\tProp_35 as string,\n\t\tProp_36 as string,\n\t\tProp_37 as string,\n\t\tProp_38 as string,\n\t\tProp_39 as string,\n\t\tProp_40 as string,\n\t\tProp_41 as string,\n\t\tProp_42 as string,\n\t\tProp_43 as string,\n\t\tProp_44 as string,\n\t\tProp_45 as string,\n\t\tProp_46 as string,\n\t\tProp_47 as string,\n\t\tProp_48 as string,\n\t\tProp_49 as string,\n\t\tProp_50 as string,\n\t\tProp_51 as string,\n\t\tProp_52 as string,\n\t\tProp_53 as string,\n\t\tProp_54 as string,\n\t\tProp_55 as string,\n\t\tProp_56 as string,\n\t\tProp_57 as string,\n\t\tProp_58 as string,\n\t\tProp_59 as string,\n\t\tProp_60 as string,\n\t\tProp_61 as string,\n\t\tProp_62 as string,\n\t\tProp_63 as string,\n\t\tProp_64 as string,\n\t\tProp_65 as string,\n\t\tProp_66 as string,\n\t\tProp_67 as string,\n\t\tProp_68 as string,\n\t\tProp_69 as string,\n\t\t{145671869742291453} as string,\n\t\tProp_71 as string,\n\t\t{95a65ac2-b6bd-4c00-b090-67767bf8a62272} as string,\n\t\tCAESEFnw7npoFRVgHYgn7sSerA0 as string,\n\t\t{fd5ec67e-5e80-4564-a02d-04e6b8996da4} as string,\n\t\tProp_75 as string,\n\t\t{CvQKCFrCwhgAAAASdS5qAw==} as string,\n\t\tProp_77 as string,\n\t\tProp_78 as string,\n\t\tProp_79 as string,\n\t\tProp_80 as string,\n\t\t{y-b446dwx1lwV3JHPexH4H8kAw.qb2V2N3sn_mnEHuYyffvVkW7D60v5eaIxHAC2u58WNm} as string,\n\t\tt as string,\n\t\t{sharethis.com} as string,\n\t\t{/a/t_.htm} as string,\n\t\tProp_85 as string,\n\t\tProp_86 as string,\n\t\tProp_87 as string,\n\t\tProp_88 as string,\n\t\tProp_89 as string,\n\t\t{1} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nsource1 filter(US == \"US\") ~> Filter1\nFilter1 sink(input(\n\t\t{1540857900} as string,\n\t\t{2018-10-30T00:05:00.002Z} as string,\n\t\t{a9debdcc-08ca-4600-968a-b4690cd3bf832} as string,\n\t\t{a9debdcc-08ca-4600-968a-b4690cd3bf833} as string,\n\t\tweb4 as string,\n\t\t{a9debdcc-08ca-4600-968a-b4690cd3bf835} as string,\n\t\tProp_6 as string,\n\t\tProp_7 as string,\n\t\tsync as string,\n\t\tProp_9 as string,\n\t\tweb10 as string,\n\t\tProp_11 as string,\n\t\tUS as string,\n\t\tProp_13 as string,\n\t\tProp_14 as string,\n\t\t{1538450539} as string,\n\t\t{10} as string,\n\t\t{95a65ac2-b6bd-4c00-b090-67767bf8a62217} as string,\n\t\tProp_18 as string,\n\t\tProp_19 as string,\n\t\tProp_20 as string,\n\t\tProp_21 as string,\n\t\tProp_22 as string,\n\t\t{8190} as string,\n\t\t{26\u0001129\u0001302\u0001317\u0001326\u0001352\u0001560\u0001563\u0001572\u0001811\u00011087\u00013055\u00013388\u00014643} as string,\n\t\t{7\u00018\u000111\u000112\u000113\u000116\u000164\u000161\u0001289} as string,\n\t\t{26\u0001129\u0001302\u0001317\u0001326\u0001352\u0001560\u0001563\u0001572\u0001811\u00011087\u00013055\u00013388\u00014643\u00018190} as string,\n\t\tProp_27 as string,\n\t\tProp_28 as string,\n\t\t{Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/69.0.3497.100 Safari/537.36} as string,\n\t\tProp_30 as string,\n\t\t{https://t.sharethis.com/a/t_.htm?ver=0.200.7874&cid=c010} as string,\n\t\tProp_32 as string,\n\t\tProp_33 as string,\n\t\tProp_34 as string,\n\t\tProp_35 as string,\n\t\tProp_36 as string,\n\t\tProp_37 as string,\n\t\tProp_38 as string,\n\t\tProp_39 as string,\n\t\tProp_40 as string,\n\t\tProp_41 as string,\n\t\tProp_42 as string,\n\t\tProp_43 as string,\n\t\tProp_44 as string,\n\t\tProp_45 as string,\n\t\tProp_46 as string,\n\t\tProp_47 as string,\n\t\tProp_48 as string,\n\t\tProp_49 as string,\n\t\tProp_50 as string,\n\t\tProp_51 as string,\n\t\tProp_52 as string,\n\t\tProp_53 as string,\n\t\tProp_54 as string,\n\t\tProp_55 as string,\n\t\tProp_56 as string,\n\t\tProp_57 as string,\n\t\tProp_58 as string,\n\t\tProp_59 as string,\n\t\tProp_60 as string,\n\t\tProp_61 as string,\n\t\tProp_62 as string,\n\t\tProp_63 as string,\n\t\tProp_64 as string,\n\t\tProp_65 as string,\n\t\tProp_66 as string,\n\t\tProp_67 as string,\n\t\tProp_68 as string,\n\t\tProp_69 as string,\n\t\t{145671869742291453} as string,\n\t\tProp_71 as string,\n\t\t{95a65ac2-b6bd-4c00-b090-67767bf8a62272} as string,\n\t\tCAESEFnw7npoFRVgHYgn7sSerA0 as string,\n\t\t{fd5ec67e-5e80-4564-a02d-04e6b8996da4} as string,\n\t\tProp_75 as string,\n\t\t{CvQKCFrCwhgAAAASdS5qAw==} as string,\n\t\tProp_77 as string,\n\t\tProp_78 as string,\n\t\tProp_79 as string,\n\t\tProp_80 as string,\n\t\t{y-b446dwx1lwV3JHPexH4H8kAw.qb2V2N3sn_mnEHuYyffvVkW7D60v5eaIxHAC2u58WNm} as string,\n\t\tt as string,\n\t\t{sharethis.com} as string,\n\t\t{/a/t_.htm} as string,\n\t\tProp_85 as string,\n\t\tProp_86 as string,\n\t\tProp_87 as string,\n\t\tProp_88 as string,\n\t\tProp_89 as string,\n\t\t{1} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/BLOBSTORAGE')]"
+			]
+		}
+	]
+}
