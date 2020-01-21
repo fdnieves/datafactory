@@ -1,0 +1,22 @@
+{
+	"name": "DestinationDataset_ykm",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "relyblobtest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "0000.csv",
+				"container": "relycontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
